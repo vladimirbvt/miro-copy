@@ -39,3 +39,7 @@ openapi-typescript же генерит только типы, которые н�
 ```bash
 npx msw init public --save
 ```
+
+### Styles and ui
+Tailwindcss
+Shadcn/ui
