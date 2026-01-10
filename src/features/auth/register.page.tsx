@@ -1,8 +1,8 @@
 import { Button } from '@/shared/ui/kit/button.tsx'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/shared/model/routes.ts'
-import { AuthLayout } from '@/features/auth/auth-layout.tsx'
-import { RegisterForm } from '@/features/auth/register-form.tsx'
+import { AuthLayout } from '@/features/auth/ui/auth-layout.tsx'
+import { RegisterForm } from '@/features/auth/ui/register-form.tsx'
 
 function RegisterPage() {
   return (

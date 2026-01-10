@@ -11,36 +11,30 @@ import { Input } from '@/shared/ui/kit/input.tsx'
 import { Button } from '@/shared/ui/kit/button.tsx'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useLogin } from '@/features/auth/model/use-login.ts'
 
-const registerSchema = z
-  .object({
-    email: z
-      .string()
-      .trim()
-      .min(1, 'Введите email')
-      .pipe(z.email({ message: 'Неверный email' })),
+const loginSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, 'Введите email')
+    .pipe(z.email({ message: 'Неверный email' })),
 
-    password: z
-      .string()
-      .min(1, 'Введите пароль')
-      .min(6, 'Пароль должен быть не менее 6 символов'),
+  password: z
+    .string()
+    .min(1, 'Введите пароль')
+    .min(6, 'Пароль должен быть не менее 6 символов'),
+})
 
-    confirmPassword: z.string().optional(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ['confirmPassword'],
-    message: 'Пароли не совпадают',
-  })
-
-export const RegisterForm = () => {
+export const LoginForm = () => {
   const form = useForm({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' },
   })
 
-  const onSubmit = form.handleSubmit((data) => {
-    console.log(data)
-  })
+  const { login, isPending, errorMessage } = useLogin()
+
+  const onSubmit = form.handleSubmit(login)
 
   return (
     <Form {...form}>
@@ -74,22 +68,13 @@ export const RegisterForm = () => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="confirmPassword"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Подтвердите пароль</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
+        {errorMessage && (
+          <p className="text-destructive text-sm">{errorMessage}</p>
+        )}
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit">Зарегистрироваться</Button>
+        <Button disabled={isPending} type="submit">
+          Войти
+        </Button>
       </form>
     </Form>
   )

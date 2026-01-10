@@ -3,8 +3,8 @@
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/shared/model/routes'
 import { Button } from '@/shared/ui/kit/button.tsx'
-import { AuthLayout } from '@/features/auth/auth-layout.tsx'
-import { LoginForm } from '@/features/auth/login-form.tsx'
+import { AuthLayout } from '@/features/auth/ui/auth-layout.tsx'
+import { LoginForm } from '@/features/auth/ui/login-form.tsx'
 
 function LoginPage() {
   // const loginMutation = rqClient.useMutation('post', '/auth/login')
